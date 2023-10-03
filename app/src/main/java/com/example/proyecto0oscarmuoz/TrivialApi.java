@@ -11,5 +11,5 @@ public interface TrivialApi {
     Call<List<TriviaResponse.Pregunta>> getPreguntas();
 
     @POST("/recibirRespuestas")
-    Call<Void> enviarPreguntas(@Body String respuestasJson);
+    Call<Void> enviarPreguntas(@Body RespuestasEnvio respuestas);
 }

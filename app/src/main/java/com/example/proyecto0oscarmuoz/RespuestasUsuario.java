@@ -1,12 +1,25 @@
 package com.example.proyecto0oscarmuoz;
 
-public class RespuestasUsuario {
-    private int preguntaID;
-    private int respuestaSeleccionada;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public RespuestasUsuario(int preguntaID, int respuestaSeleccionada) {
+import java.util.List;
+
+public class RespuestasUsuario {
+    @SerializedName("preguntaID")
+    @Expose
+    private int preguntaID;
+    @SerializedName("respuestaSeleccionada")
+    @Expose
+    private int respuestaSeleccionada;
+    @SerializedName("respuestaCorrecta")
+    @Expose
+    private int respuestaCorrecta;
+
+    public RespuestasUsuario(int preguntaID, int respuestaSeleccionada, int respuestaCorrecta) {
         this.preguntaID = preguntaID;
         this.respuestaSeleccionada = respuestaSeleccionada;
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 
     public int getPreguntaID() {
@@ -25,3 +38,4 @@ public class RespuestasUsuario {
         this.respuestaSeleccionada = respuestaSeleccionada;
     }
 }
+

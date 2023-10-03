@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //creamos el contador
-        countDownTimer = new CountDownTimer(10000    , 1000) {
+        countDownTimer = new CountDownTimer(5000    , 1000) {
             public void onTick(long millisUntilFinished) {
                 tvContador.setText("Tiempo restante: " + millisUntilFinished / 1000 + "s");
             }
@@ -191,40 +192,52 @@ public class MainActivity extends AppCompatActivity {
 
             // Obtenemos el RadioGroup correspondiente a la pregunta
             View childView = linearPreguntas.getChildAt(i * 3 + 2);
+
             Log.d("PruebaIndex","i: "+i+" index: "+i * 3 + 2);
 
             if (childView instanceof RadioGroup) {
                 RadioGroup radioGroup = (RadioGroup) childView;
                 // Asignamos la opción seleccionada con getCheckedRadioButtonId()
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-                RespuestasUsuario respuesta = new RespuestasUsuario((i+1),selectedRadioButtonId);
-                respuestasSeleccionadas.add(respuesta);
-                Log.d("pruebaRespuestas","selected: "+selectedRadioButtonId+" correcta: "+pregunta.getRespostaCorrecta());
-                // Comprobamos si la opción seleccionada es la respuesta correcta
-                if (selectedRadioButtonId == pregunta.getRespostaCorrecta()) {
-                    respuestasCorrectas++;
+                if(selectedRadioButtonId != -1) {
+                    RespuestasUsuario respuesta = new RespuestasUsuario((i + 1), selectedRadioButtonId, pregunta.getRespostaCorrecta());
+                    respuestasSeleccionadas.add(respuesta);
+                    Log.d("pruebaRespuestas", "selected: " + selectedRadioButtonId + " correcta: " + pregunta.getRespostaCorrecta());
+                    // Comprobamos si la opción seleccionada es la respuesta correcta
+                    if (selectedRadioButtonId == pregunta.getRespostaCorrecta()) {
+                        respuestasCorrectas++;
+                    }
                 }
-                //radioGroupIndex++;
+
             }
         }
 
         Gson gson = new Gson();
-        String respuestasJson = gson.toJson(respuestasSeleccionadas);
 
-        Call<Void> call = trivialApi.enviarPreguntas(respuestasJson);
+        RespuestasEnvio respuestasEnvio = new RespuestasEnvio(respuestasSeleccionadas);
+        String respuestasJson = gson.toJson(respuestasEnvio);
+
+
+
+        //String respuestasJson = gson.toJson(respuestasSeleccionadas);
+        //String respuestasJson = gson.toJson(respuestasSeleccionadas, new TypeToken<List<RespuestasUsuario>>() {}.getType());
+        Log.d("prueba", "enviarRespuestas: "+ respuestasJson);
+
+        Call<Void> call = trivialApi.enviarPreguntas(respuestasEnvio);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("prueba",response.toString());
                 if(response.isSuccessful()){
-                    Log.d("prueba","ha funcionado lol");
+                    Log.d("prueba","ha funcionado");
                 }else{
-                    Log.e("prueba","error en solicitud al enviar: "+response.code());
+                    Log.e("prueba","error en solicitud al enviar: "+response.code()+" "+call.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("Error", "Error en la solicitud al servidor: " + t.getMessage());
+                Log.e("Error", "Error en la solicitud al servidor: " + t.getMessage()+" "+ call);
             }
         });
 
