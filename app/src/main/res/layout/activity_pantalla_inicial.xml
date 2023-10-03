@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30px"
+    android:background="#DF8383"
+    android:backgroundTint="#DF8383"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+
+    <TextView
+        android:id="@+id/tvExplicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="@string/enunciado"
+        android:paddingVertical="250px"
+
+        />
+    <Button
+        android:id="@+id/btnEmpezar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EMPEZAR PARTIDA"
+        android:onClick="comenzarPartida"/>
+
+
+</LinearLayout>
