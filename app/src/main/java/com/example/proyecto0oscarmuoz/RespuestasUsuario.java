@@ -9,17 +9,19 @@ public class RespuestasUsuario {
     @SerializedName("preguntaID")
     @Expose
     private int preguntaID;
-    @SerializedName("respuestaSeleccionada")
-    @Expose
-    private int respuestaSeleccionada;
-    @SerializedName("respuestaCorrecta")
-    @Expose
-    private int respuestaCorrecta;
 
-    public RespuestasUsuario(int preguntaID, int respuestaSeleccionada, int respuestaCorrecta) {
+    @SerializedName(("acierto"))
+    @Expose
+    private boolean acierto;
+
+
+    public RespuestasUsuario() {
+        this.preguntaID = 0;
+        this.acierto = false;
+    }
+    public RespuestasUsuario(int preguntaID, boolean acierto) {
         this.preguntaID = preguntaID;
-        this.respuestaSeleccionada = respuestaSeleccionada;
-        this.respuestaCorrecta = respuestaCorrecta;
+        this.acierto = acierto;
     }
 
     public int getPreguntaID() {
@@ -30,12 +32,13 @@ public class RespuestasUsuario {
         this.preguntaID = preguntaID;
     }
 
-    public int getRespuestaSeleccionada() {
-        return respuestaSeleccionada;
+    public boolean isAcierto() {
+        return acierto;
     }
 
-    public void setRespuestaSeleccionada(int respuestaSeleccionada) {
-        this.respuestaSeleccionada = respuestaSeleccionada;
+    public void setAcierto(boolean acierto) {
+        this.acierto = acierto;
     }
 }
+
 

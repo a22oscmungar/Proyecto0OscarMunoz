@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //creamos el contador
-        countDownTimer = new CountDownTimer(5000    , 1000) {
+        countDownTimer = new CountDownTimer(30000    , 1000) {
             public void onTick(long millisUntilFinished) {
                 tvContador.setText("Tiempo restante: " + millisUntilFinished / 1000 + "s");
             }
@@ -200,13 +200,16 @@ public class MainActivity extends AppCompatActivity {
                 // Asignamos la opción seleccionada con getCheckedRadioButtonId()
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
                 if(selectedRadioButtonId != -1) {
-                    RespuestasUsuario respuesta = new RespuestasUsuario((i + 1), selectedRadioButtonId, pregunta.getRespostaCorrecta());
-                    respuestasSeleccionadas.add(respuesta);
+                    RespuestasUsuario respuesta = new RespuestasUsuario();
+                    respuesta.setPreguntaID(i+1);
+
                     Log.d("pruebaRespuestas", "selected: " + selectedRadioButtonId + " correcta: " + pregunta.getRespostaCorrecta());
                     // Comprobamos si la opción seleccionada es la respuesta correcta
                     if (selectedRadioButtonId == pregunta.getRespostaCorrecta()) {
                         respuestasCorrectas++;
+                        respuesta.setAcierto(true);
                     }
+                    respuestasSeleccionadas.add(respuesta);
                 }
 
             }

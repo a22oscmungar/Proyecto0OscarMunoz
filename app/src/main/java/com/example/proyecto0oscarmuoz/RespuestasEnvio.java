@@ -3,9 +3,9 @@ package com.example.proyecto0oscarmuoz;
 import java.util.List;
 
 public class RespuestasEnvio {
-    private List<RespuestasUsuario> preguntas;
+    private List<RespuestasUsuario> respuestasEnviadas;
 
     public RespuestasEnvio(List<RespuestasUsuario> preguntas) {
-        this.preguntas = preguntas;
+        this.respuestasEnviadas = preguntas;
     }
 }
