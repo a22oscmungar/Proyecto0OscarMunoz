@@ -20,6 +20,8 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvContador;
     CountDownTimer countDownTimer;
 
-    private static final String URL = "http://192.168.19.160:3005/"; //string que usaremos con nuestra url
+    private static final String URL = "http://192.168.1.28:3005/"; //string que usaremos con nuestra url
     private Retrofit retrofit;
     private TrivialApi trivialApi;
 
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     // Log.d("Prueba","El response ha funcionado");
                     //List<TriviaResponse.Pregunta> triviaResponse = response.body();
                     preguntas = response.body();
+                    Collections.shuffle(preguntas);
                     //preguntas = triviaResponse.getPreguntas();
                     mostrarPreguntas(preguntas);
                 } else {
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
                 if(selectedRadioButtonId != -1) {
                     RespuestasUsuario respuesta = new RespuestasUsuario();
-                    respuesta.setPreguntaID(i+1);
+                    respuesta.setPreguntaID(pregunta.getId());
 
                     Log.d("pruebaRespuestas", "selected: " + selectedRadioButtonId + " correcta: " + pregunta.getRespostaCorrecta());
                     // Comprobamos si la opción seleccionada es la respuesta correcta
